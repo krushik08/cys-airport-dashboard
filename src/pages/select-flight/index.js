@@ -7,7 +7,7 @@ import {
   styled,
 } from '@mui/material';
 import AeroZephyr from 'assets/images/flights/Air1.png';
-import AviaNex from 'assets/images/flights/Air2.png';
+import AviaNex from 'assets/images/flights/Air22.png';
 import SkyZenith from 'assets/images/flights/Air3.png';
 import Equinox from 'assets/images/flights/Air4.png';
 import AlturaJet from 'assets/images/flights/Air5.png';
@@ -33,17 +33,16 @@ const AirLineCard = styled(MainCard)(({ theme }) => ({
 }));
 
 const AirLinesLogo = styled(Box)(({ theme }) => ({
-  width: '300px',
-  aspectRatio: 2 / 1,
+  width: '150px',
+  // aspectRatio: 2 / 1,
   borderRadius: '8px',
-  padding: '4px',
 
-  [theme.breakpoints.up('md')]: {
-    width: '250px',
-  },
-  [theme.breakpoints.up('sm')]: {
-    width: '200px',
-  },
+  // [theme.breakpoints.up('md')]: {
+  //   width: '250px',
+  // },
+  // [theme.breakpoints.up('sm')]: {
+  //   width: '200px',
+  // },
 }));
 
 const AirLinesTitle = styled(Typography)(({ theme }) => ({
@@ -72,7 +71,7 @@ const SelectFlight = () => {
   return (
     <Container>
       <Grid container spacing={gridSpacing}>
-        <Grid item xs={12} mb={3}>
+        <Grid item xs={12} mb={1}>
           <Typography
             variant="h1"
             textAlign={'center'}
@@ -92,7 +91,7 @@ const SelectFlight = () => {
               alignItems={'center'}
               spacing={1}
             >
-              <Grid mb={2}>
+              <Grid>
                 <AirLinesTitle> NovaGlide </AirLinesTitle>
               </Grid>
 
@@ -100,7 +99,7 @@ const SelectFlight = () => {
                 <AirLinesLogo component="img" src={NovaGlide} />
               </Grid>
 
-              <Grid item mt={2}>
+              <Grid item>
                 <AirLinesButton
                   variant="contained"
                   size="large"
@@ -125,7 +124,7 @@ const SelectFlight = () => {
               alignItems={'center'}
               spacing={1}
             >
-              <Grid mb={2}>
+              <Grid>
                 <AirLinesTitle>AeroZephyr</AirLinesTitle>
               </Grid>
 
@@ -133,7 +132,7 @@ const SelectFlight = () => {
                 <AirLinesLogo component="img" src={AeroZephyr} />
               </Grid>
 
-              <Grid item mt={2}>
+              <Grid item>
                 <AirLinesButton
                   variant="contained"
                   size="large"
@@ -158,7 +157,7 @@ const SelectFlight = () => {
               alignItems={'center'}
               spacing={1}
             >
-              <Grid mb={2}>
+              <Grid>
                 <AirLinesTitle>AviaNex</AirLinesTitle>
               </Grid>
 
@@ -166,7 +165,7 @@ const SelectFlight = () => {
                 <AirLinesLogo component="img" src={AviaNex} />
               </Grid>
 
-              <Grid item mt={2}>
+              <Grid item>
                 <AirLinesButton
                   variant="contained"
                   size="large"
@@ -191,7 +190,7 @@ const SelectFlight = () => {
               alignItems={'center'}
               spacing={1}
             >
-              <Grid mb={2}>
+              <Grid>
                 <AirLinesTitle>SkyZenith</AirLinesTitle>
               </Grid>
 
@@ -199,7 +198,7 @@ const SelectFlight = () => {
                 <AirLinesLogo component="img" src={SkyZenith} />
               </Grid>
 
-              <Grid item mt={2}>
+              <Grid item>
                 <AirLinesButton
                   variant="contained"
                   size="large"
@@ -224,7 +223,7 @@ const SelectFlight = () => {
               alignItems={'center'}
               spacing={1}
             >
-              <Grid mb={2}>
+              <Grid>
                 <AirLinesTitle>Equinox</AirLinesTitle>
               </Grid>
 
@@ -232,7 +231,7 @@ const SelectFlight = () => {
                 <AirLinesLogo component="img" src={Equinox} />
               </Grid>
 
-              <Grid item mt={2}>
+              <Grid item>
                 <AirLinesButton
                   variant="contained"
                   size="large"
@@ -257,7 +256,7 @@ const SelectFlight = () => {
               alignItems={'center'}
               spacing={1}
             >
-              <Grid mb={2}>
+              <Grid>
                 <AirLinesTitle>AlturaJet</AirLinesTitle>
               </Grid>
 
@@ -265,7 +264,7 @@ const SelectFlight = () => {
                 <AirLinesLogo component="img" src={AlturaJet} />
               </Grid>
 
-              <Grid item mt={2}>
+              <Grid item>
                 <AirLinesButton
                   variant="contained"
                   size="large"
@@ -285,10 +284,3 @@ const SelectFlight = () => {
 };
 
 export default SelectFlight;
-
-// Air Arabia
-// Air Arabia Abu Dhabi
-// Emirates
-// Etihad Airways
-// Flydubai
-// Wizz Air Abu Dhabi

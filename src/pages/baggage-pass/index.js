@@ -55,7 +55,8 @@ function BaggagePass() {
     await axios
       .get(`http://localhost:3001/book-flight/${flightData.PNRNumber}`)
       .then((res) => {
-        return setFlight(res.data?.flightBookDetails);
+        console.log('res.data?.data', res.data?.data);
+        return setFlight(res.data?.data);
       })
       .catch((err) => {
         console.log('err', err);
@@ -116,7 +117,6 @@ function BaggagePass() {
       })
       .then((res) => {
         console.log(res);
-        // navigate('/thank-you');
       })
       .catch((err) => {
         console.log('err', err);
@@ -250,54 +250,73 @@ function BaggagePass() {
                 </Stack>
               </Box>
               <Divider />
-              <Box
-                sx={{
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
-                  p: 2,
-                }}
-              >
-                <Stack direction="row" alignItems={'center'} gap={2}>
-                  <Typography
-                    variant="h3"
-                    sx={{
-                      fontWeight: '400',
-                      color: theme.palette.text.primary,
-                    }}
+              <Grid container p={2} alignItems={'center'}>
+                {/* <Stack direction="row" alignItems={'center'} gap={2}> */}
+                <Grid item xs={6}>
+                  <Grid container alignItems={'center'}>
+                    <Grid item xs={3}>
+                      <Typography
+                        variant="h3"
+                        sx={{
+                          fontWeight: '400',
+                          color: theme.palette.text.primary,
+                        }}
+                      >
+                        Name:{' '}
+                      </Typography>
+                    </Grid>
+
+                    <Grid item xs={8}>
+                      <Typography
+                        variant="h3"
+                        sx={{
+                          fontWeight: 'bold',
+                          color: theme.palette.text.primary,
+                          textTransform: 'uppercase',
+                        }}
+                      >
+                        {flight?.firstName} {flight?.lastName}
+                      </Typography>
+                    </Grid>
+                  </Grid>
+                </Grid>
+                {/* </Stack> */}
+                {/* <Stack direction="row" alignItems={'center'} gap={2}> */}
+                <Grid item xs={6}>
+                  <Grid
+                    container
+                    alignItems={'center'}
+                    justifyContent={'flex-end'}
                   >
-                    Name:{' '}
-                  </Typography>
-                  <Typography
-                    variant="h3"
-                    sx={{
-                      fontWeight: 'bold',
-                      color: theme.palette.text.primary,
-                      textTransform: 'uppercase',
-                    }}
-                  >
-                    {flight?.firstName} {flight?.lastName}
-                  </Typography>
-                </Stack>
-                <Stack direction="row" alignItems={'center'} gap={2}>
-                  <Typography
-                    variant="h3"
-                    sx={{
-                      fontWeight: '400',
-                      color: theme.palette.text.primary,
-                    }}
-                  >
-                    No. Bag:{' '}
-                  </Typography>
-                  <Select
-                    options={bagCountList}
-                    value={bagCount}
-                    onChange={(newValue) => {
-                      setBagCount(newValue);
-                    }}
-                  />
-                </Stack>
-              </Box>
+                    <Grid item xs={4}>
+                      {' '}
+                      <Typography
+                        variant="h3"
+                        sx={{
+                          fontWeight: '400',
+                          color: theme.palette.text.primary,
+                        }}
+                      >
+                        No. Bag:{' '}
+                      </Typography>
+                    </Grid>
+                    <Grid item xs={6}>
+                      <Select
+                        options={bagCountList}
+                        value={bagCount}
+                        components={{
+                          DropdownIndicator: () => null,
+                          IndicatorSeparator: () => null,
+                        }}
+                        onChange={(newValue) => {
+                          setBagCount(newValue);
+                        }}
+                      />
+                    </Grid>
+                  </Grid>
+                </Grid>
+                {/* </Stack> */}
+              </Grid>
               <Divider />
               <Box
                 ref={ref}

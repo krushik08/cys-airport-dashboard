@@ -15,60 +15,62 @@ import { drawerWidth } from 'store/constant';
 import { openDrawer } from 'store/slices/menu';
 
 // styles
-const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(({ theme, open, layout }) => ({
+const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
+  ({ theme, open, layout }) => ({
     ...theme.typography.mainContent,
     background: '#f0f0f0',
     borderRadius: 0,
     // borderBottomRightRadius: 0,
     ...(!open && {
-        transition: theme.transitions.create('margin', {
-            easing: theme.transitions.easing.sharp,
-            duration: theme.transitions.duration.shorter + 200
-        }),
-        [theme.breakpoints.up('md')]: {
-            // marginLeft: layout === LAYOUT_CONST.VERTICAL_LAYOUT ? -(drawerWidth - 72) : '20px',
-            marginRight: 0,
+      transition: theme.transitions.create('margin', {
+        easing: theme.transitions.easing.sharp,
+        duration: theme.transitions.duration.shorter + 200,
+      }),
+      [theme.breakpoints.up('md')]: {
+        // marginLeft: layout === LAYOUT_CONST.VERTICAL_LAYOUT ? -(drawerWidth - 72) : '20px',
+        marginRight: 0,
 
-            width: `calc(100% - ${drawerWidth}px)`,
-            marginTop: layout === LAYOUT_CONST.HORIZONTAL_LAYOUT ? 68 : 68
-        }
+        width: `calc(100% - ${drawerWidth}px)`,
+        marginTop: layout === LAYOUT_CONST.HORIZONTAL_LAYOUT ? 0 : 0,
+      },
     }),
     ...(open && {
-        transition: theme.transitions.create('margin', {
-            easing: theme.transitions.easing.easeOut,
-            duration: theme.transitions.duration.shorter + 200
-        }),
-        // marginLeft: layout === LAYOUT_CONST.HORIZONTAL_LAYOUT ? '20px' : 0,
-        marginRight: 0,
+      transition: theme.transitions.create('margin', {
+        easing: theme.transitions.easing.easeOut,
+        duration: theme.transitions.duration.shorter + 200,
+      }),
+      // marginLeft: layout === LAYOUT_CONST.HORIZONTAL_LAYOUT ? '20px' : 0,
+      marginRight: 0,
 
-        marginTop: layout === LAYOUT_CONST.HORIZONTAL_LAYOUT ? 68 : 68,
-        width: `calc(100% - ${drawerWidth}px)`,
-        [theme.breakpoints.up('md')]: {
-            marginTop: layout === LAYOUT_CONST.HORIZONTAL_LAYOUT ? 68 : 68
-        }
+      marginTop: layout === LAYOUT_CONST.HORIZONTAL_LAYOUT ? 0 : 0,
+      width: `calc(100% - ${drawerWidth}px)`,
+      [theme.breakpoints.up('md')]: {
+        marginTop: layout === LAYOUT_CONST.HORIZONTAL_LAYOUT ? 0 : 0,
+      },
     }),
     [theme.breakpoints.down('md')]: {
-        // marginLeft: '20px',
-        marginRight: 0,
+      // marginLeft: '20px',
+      marginRight: 0,
 
-        padding: '16px',
-        marginTop: 68,
-        ...(!open && {
-            width: `calc(100% - ${drawerWidth}px)`
-        })
+      padding: '16px',
+      marginTop: 0,
+      ...(!open && {
+        width: `calc(100% - ${drawerWidth}px)`,
+      }),
     },
     [theme.breakpoints.down('sm')]: {
-        // marginLeft: '10px',
-        marginRight: 0,
+      // marginLeft: '10px',
+      marginRight: 0,
 
-        // marginRight: '10px',
-        padding: '16px',
-        marginTop: 68,
-        ...(!open && {
-            width: `calc(100% - ${drawerWidth}px)`
-        })
-    }
-}));
+      // marginRight: '10px',
+      padding: '16px',
+      marginTop: 68,
+      ...(!open && {
+        width: `calc(100% - ${drawerWidth}px)`,
+      }),
+    },
+  })
+);
 
 // ==============================|| MAIN LAYOUT ||============================== //
 
@@ -117,20 +119,31 @@ const MainLayout = () => {
     );
 
     return (
-        <Box sx={{ display: 'flex', maxHeight: '100vh' }}>
-            <CssBaseline />
-            {/* header */}
-            <AppBar enableColorOnDark position="fixed" color="inherit" elevation={0} sx={{ bgcolor: 'red', display: 'none' }}>
+      <Box sx={{ display: 'flex', maxHeight: '100vh' }}>
+        <CssBaseline />
+        {/* header */}
+        {/* <AppBar enableColorOnDark position="fixed" color="inherit" elevation={0} sx={{ bgcolor: 'red', display: 'none' }}>
                 {header}
-            </AppBar>
+            </AppBar> */}
 
-            {/* main content */}
-            <Main theme={theme} sx={{ maxHeight: '100vh', overflow: 'auto' }} open={drawerOpen} layout={layout}>
-                <Container maxWidth={container ? 'lg' : false} {...(!container && { sx: { px: { xs: 0 } } })}>
-                    <Outlet />
-                </Container>
-            </Main>
-        </Box>
+        {/* main content */}
+        <Main
+          theme={theme}
+          sx={{ maxHeight: '100vh', overflow: 'auto' }}
+          open={drawerOpen}
+          layout={layout}
+        >
+          <Container
+            maxWidth={container ? 'lg' : false}
+            {...(!container && { sx: { px: { xs: 0 } } })}
+            justifyContent={'center'}
+            alignItems={'center'}
+            display={'flex'}
+          >
+            <Outlet />
+          </Container>
+        </Main>
+      </Box>
     );
 };
 
