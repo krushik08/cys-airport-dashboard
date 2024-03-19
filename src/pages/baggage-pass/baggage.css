@@ -1,0 +1,19 @@
+@media print {
+
+    /* Set page size to A4 */
+    @page {
+        size: A4;
+        margin: 0;
+        /* Reset default margin */
+    }
+
+    /* Set content size to fit within A4 page */
+    body {
+        width: 210mm;
+        /* A4 width */
+        height: 297mm;
+        /* A4 height */
+        margin: 20mm;
+        /* Adjust margin as needed */
+    }
+}
