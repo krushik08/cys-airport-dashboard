@@ -1,50 +1,52 @@
-import { Box, Button, Container, Grid, Stack, styled } from '@mui/material';
-import { gridSpacing } from 'store/constant';
-import './pass.css';
-import DownloadIcon from '@mui/icons-material/Download';
-import { useNavigate } from 'react-router-dom';
-import { jsPDF } from 'jspdf';
-import html2canvas from 'html2canvas';
-import axios from 'axios';
-import { useEffect, useRef, useState } from 'react';
-import moment from 'moment';
-import Air1 from 'assets/images/flights/Air1.png';
-import Air2 from 'assets/images/flights/Air2.png';
-import Air3 from 'assets/images/flights/Air3.png';
-import Air4 from 'assets/images/flights/Air4.png';
-import Air5 from 'assets/images/flights/Air5.png';
-import Air6 from 'assets/images/flights/Air6.png';
-import AirLogo from 'assets/images/flighticon.svg';
-import qrcode from 'qrcode';
-import ReactToPrint from 'react-to-print';
+import { Box, Button, Container, Grid, Stack, styled } from "@mui/material";
+import { gridSpacing } from "store/constant";
+import "./pass.css";
+import DownloadIcon from "@mui/icons-material/Download";
+import { Link, useNavigate } from "react-router-dom";
+import { jsPDF } from "jspdf";
+import html2canvas from "html2canvas";
+import axios from "axios";
+import { useEffect, useRef, useState } from "react";
+import moment from "moment";
+import Air1 from "assets/images/flights/Air1.png";
+import Air2 from "assets/images/flights/Air2.png";
+import Air3 from "assets/images/flights/Air3.png";
+import Air4 from "assets/images/flights/Air4.png";
+import Air5 from "assets/images/flights/Air5.png";
+import Air6 from "assets/images/flights/Air6.png";
+import AirLogo from "assets/images/flighticon.svg";
+import qrcode from "qrcode";
+import ReactToPrint from "react-to-print";
+
+import HomeIcon from "assets/images/icons/home.png";
+import ArrowIcon from "assets/images/icons/arrow.png";
 
 const DownloadButton = styled(Button)(() => ({
   height: 56,
   // width: 108,
-  fontSize: '1.2rem',
+  fontSize: "1.2rem",
 }));
 const AirLinesLogo = styled(Box)(({ theme }) => ({
-  width: '70px',
+  width: "70px",
   aspectRatio: 1 / 1,
-  borderRadius: '8px',
-  padding: '4px',
+  borderRadius: "8px",
+  padding: "4px",
 
-  [theme.breakpoints.up('md')]: {
-    width: '70px',
+  [theme.breakpoints.up("md")]: {
+    width: "70px",
   },
-  [theme.breakpoints.up('sm')]: {
-    width: '70px',
+  [theme.breakpoints.up("sm")]: {
+    width: "70px",
   },
 }));
 
 const BoardingPass = () => {
   const navigate = useNavigate();
   const ref = useRef();
-  const [qrCodeDataURL, setQRCodeDataURL] = useState('');
+  const [qrCodeDataURL, setQRCodeDataURL] = useState("");
   const [flight, setFlight] = useState();
-  const flightData = JSON.parse(localStorage.getItem('flightInfo'));
+  const flightData = JSON.parse(localStorage.getItem("flightInfo"));
   const fetchData = async () => {
-
     await axios
       .get(`http://localhost:3001/book-flight/${flightData.PNRNumber}`)
       .then((res) => {
@@ -52,7 +54,7 @@ const BoardingPass = () => {
         return setFlight(res.data?.data);
       })
       .catch((err) => {
-        console.log('err', err);
+        console.log("err", err);
       });
   };
   useEffect(() => {
@@ -65,49 +67,70 @@ const BoardingPass = () => {
     try {
       // Generate QR code as a data URL
       const generatedQRCode = await qrcode.toDataURL(flight?.PNRNumber, {
-        width: '130px',
-        height: '130px',
+        width: "130px",
+        height: "130px",
       });
       setQRCodeDataURL(generatedQRCode);
     } catch (error) {
-      console.error('Error generating QR code:', error);
+      console.error("Error generating QR code:", error);
     }
   };
 
   return (
-    <Container
-      sx={{
-        height: '80vh',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-      }}
+    <
+      // sx={{
+      //   height: '80vh',
+      //   display: 'flex',
+      //   alignItems: 'center',
+      //   justifyContent: 'center',
+      // }}
     >
+      <Stack
+        direction={"row"}
+        alignItems={"center"}
+        sx={{ position: "absolute", top: 0, py: 2 }}
+        gap={2}
+      >
+        <Box
+          component={"img"}
+          src={ArrowIcon}
+          height={55}
+          sx={{ rotate: "180deg", cursor: "pointer" }}
+          onClick={() => {
+            navigate(-1);
+          }}
+        />
+
+        <Link to={"/"}>
+          <Box component={"img"} src={HomeIcon} height={55} />
+        </Link>
+      </Stack>
+
       <Grid
         container
         spacing={gridSpacing}
-        justifyContent={'center'}
-        alignItems={'center'}
+        justifyContent={"center"}
+        alignItems={"center"}
       >
         <Grid item xs={12} md={5} ref={ref}>
           <div className="boarding-pass">
             <div className="header">
-              {flight?.flightId?.imgPath === 'Air1' && (
+              {flight?.flightId?.imgPath === "Air1" && (
                 <AirLinesLogo component="img" src={Air1} />
               )}
-              {flight?.flightId?.imgPath === 'Air2' && (
+              {flight?.flightId?.imgPath === "Air2" && (
                 <AirLinesLogo component="img" src={Air2} />
               )}
-              {flight?.flightId?.imgPath === 'Air3' && (
+              {flight?.flightId?.imgPath === "Air3" && (
                 <AirLinesLogo component="img" src={Air3} />
               )}
-              {flight?.flightId?.imgPath === 'Air4' && (
+              {flight?.flightId?.imgPath === "Air4" && (
                 <AirLinesLogo component="img" src={Air4} />
               )}
-              {flight?.flightId?.imgPath === 'Air5' && (
+              {flight?.flightId?.imgPath === "Air5" && (
                 <AirLinesLogo component="img" src={Air5} />
               )}
-              {flight?.flightId?.imgPath === 'Air6' && (
+              {flight?.flightId?.imgPath === "Air6" && (
                 <AirLinesLogo component="img" src={Air6} />
               )}
               <div className="flight">
@@ -117,17 +140,17 @@ const BoardingPass = () => {
             </div>
             <section className="cities">
               <div className="city">
-                <small>{flight?.departureAirport.slice(0, 27) + '...'}</small>
+                <small>{flight?.departureAirport.slice(0, 27) + "..."}</small>
 
                 <strong>{flight?.departureLocation}</strong>
               </div>
               <div className="city">
-                <small>{flight?.arrivalAirport.slice(0, 27) + '...'}</small>
+                <small>{flight?.arrivalAirport.slice(0, 27) + "..."}</small>
 
                 <strong>{flight?.arrivalLocation}</strong>
               </div>
-              <div style={{ display: 'flex', justifyContent: 'center' }}>
-                <img style={{ width: '40px' }} src={AirLogo} />
+              <div style={{ display: "flex", justifyContent: "center" }}>
+                <img style={{ width: "40px" }} src={AirLogo} />
               </div>
             </section>
             <section className="infos">
@@ -157,13 +180,13 @@ const BoardingPass = () => {
                 <div className="box">
                   <small>Boarding</small>
                   {moment(flight?.departureDate)
-                    .subtract(20, 'minutes')
-                    .format('HH:mm')}
+                    .subtract(20, "minutes")
+                    .format("HH:mm")}
                 </div>
                 <div className="box">
                   <small>Departure</small>
                   <strong>
-                    {moment(flight?.departureDate).format('HH:mm')}
+                    {moment(flight?.departureDate).format("HH:mm")}
                   </strong>
                 </div>
                 <div className="box">
@@ -173,10 +196,10 @@ const BoardingPass = () => {
                 <div className="box">
                   <small>Arrival</small>
                   <strong>
-                    {' '}
+                    {" "}
                     {moment(flight?.departureDate)
-                      .add(2, 'hours')
-                      .format('HH:mm')}
+                      .add(2, "hours")
+                      .format("HH:mm")}
                   </strong>
                 </div>
               </div>
@@ -184,9 +207,9 @@ const BoardingPass = () => {
             <section className="strap ">
               <div
                 className="box"
-                style={{ display: 'flex', justifyContent: 'space-between' }}
+                style={{ display: "flex", justifyContent: "space-between" }}
               >
-                <div style={{ flexDirection: 'column' }}>
+                <div style={{ flexDirection: "column" }}>
                   <div className="passenger">
                     <small>passenger</small>
                     <strong>
@@ -196,7 +219,7 @@ const BoardingPass = () => {
                   <div className="date">
                     <small>Date</small>
                     <strong>
-                      {moment(flight?.departureDate).format('DD MMM YYYY')}
+                      {moment(flight?.departureDate).format("DD MMM YYYY")}
                     </strong>
                   </div>
                 </div>
@@ -228,13 +251,13 @@ const BoardingPass = () => {
         </Grid>
 
         <Grid item xs={12}>
-          <Stack direction={'row'} justifyContent={'center'} mt={3}>
+          <Stack direction={"row"} justifyContent={"center"} mt={3}>
             <ReactToPrint
               trigger={() => (
                 <DownloadButton
                   variant="contained"
-                  textAlign={'center'}
-                  color={'secondary'}
+                  textAlign={"center"}
+                  color={"secondary"}
                   size="large"
                   startIcon={<DownloadIcon />}
                 >
@@ -248,7 +271,7 @@ const BoardingPass = () => {
           </Stack>
         </Grid>
       </Grid>
-    </Container>
+    </>
   );
 };
 

@@ -3,39 +3,43 @@ import {
   Button,
   Container,
   Grid,
+  Stack,
   Typography,
   styled,
-} from '@mui/material';
-import AeroZephyr from 'assets/images/flights/Air1.png';
-import AviaNex from 'assets/images/flights/Air22.png';
-import SkyZenith from 'assets/images/flights/Air3.png';
-import Equinox from 'assets/images/flights/Air4.png';
-import AlturaJet from 'assets/images/flights/Air5.png';
-import NovaGlide from 'assets/images/flights/Air6.png';
+} from "@mui/material";
+import AeroZephyr from "assets/images/flights/Air1.png";
+import AviaNex from "assets/images/flights/Air22.png";
+import SkyZenith from "assets/images/flights/Air3.png";
+import Equinox from "assets/images/flights/Air4.png";
+import AlturaJet from "assets/images/flights/Air5.png";
+import NovaGlide from "assets/images/flights/Air6.png";
 
-import { useNavigate } from 'react-router-dom';
-import { gridSpacing } from 'store/constant';
-import MainCard from 'ui-component/cards/MainCard';
+import HomeIcon from "assets/images/icons/home.png";
+import ArrowIcon from "assets/images/icons/arrow.png";
+
+import { Link, useNavigate } from "react-router-dom";
+import { gridSpacing } from "store/constant";
+import MainCard from "ui-component/cards/MainCard";
 
 //
 const AirLineCard = styled(MainCard)(({ theme }) => ({
-  border: '3px solid transparent',
-  borderRadius: '12px',
-  ':hover': {
+  border: "3px solid transparent",
+  borderRadius: "12px",
+  ":hover": {
     // background: '#f2f',
     border: `3px solid ${theme.palette.secondary.main}`,
     // boxShadow: 'rgba(100, 100, 111, 0.2) 0px 7px 29px 0px'
     boxShadow:
-      'rgba(50, 50, 93, 0.25) 0px 25px 50px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px',
+      "rgba(50, 50, 93, 0.25) 0px 25px 50px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px",
   },
 
-  [theme.breakpoints.down('md')]: {},
+  [theme.breakpoints.down("md")]: {},
 }));
 
 const AirLinesLogo = styled(Box)(({ theme }) => ({
-  width: '150px',
+  width: "150px",
   // aspectRatio: 2 / 1,
-  borderRadius: '8px',
+  borderRadius: "8px",
 
   // [theme.breakpoints.up('md')]: {
   //   width: '250px',
@@ -46,49 +50,70 @@ const AirLinesLogo = styled(Box)(({ theme }) => ({
 }));
 
 const AirLinesTitle = styled(Typography)(({ theme }) => ({
-  fontSize: '1.5rem',
-  textAlign: 'center',
-  whiteSpace: 'nowrap',
-  fontWeight: 'bold',
+  fontSize: "1.5rem",
+  textAlign: "center",
+  whiteSpace: "nowrap",
+  fontWeight: "bold",
   color: theme.palette.secondary.main,
 }));
 
 const AirLinesButton = styled(Button)(() => ({
   height: 56,
   width: 108,
-  fontSize: '1.2rem',
+  fontSize: "1.2rem",
 }));
 
 const SelectFlight = () => {
   const navigate = useNavigate();
   const handleChange = (e) => {
-    navigate('/pnr');
+    navigate("/pnr");
     localStorage.setItem(
-      'flightInfo',
+      "flightInfo",
       JSON.stringify({ flightId: e.target.id })
     );
   };
   return (
-    <Container>
-      <Grid container spacing={gridSpacing}>
+    <>
+      {/* <Stack
+        direction={"row"}
+        alignItems={"center"}
+        sx={{ position: "absolute", top: 0, py: 2 }}
+        gap={2}
+      >
+        <Box
+          component={"img"}
+          src={ArrowIcon}
+          height={55}
+          sx={{ rotate: "180deg" }}
+        />
+
+        <Link to={"/"}>
+          <Box component={"img"} src={HomeIcon} height={55} />
+        </Link>
+      </Stack> */}
+      <Grid
+        container
+        spacing={gridSpacing}
+        my={0}
+        sx={{ position: "relative" }}
+      >
         <Grid item xs={12} mb={1}>
           <Typography
             variant="h1"
-            textAlign={'center'}
-            sx={{ textTransform: 'capitalize' }}
-            color={'secondary'}
+            textAlign={"center"}
+            sx={{ textTransform: "capitalize" }}
+            color={"secondary"}
           >
-            Please select your travel Airline{' '}
+            Please select your travel Airline{" "}
           </Typography>
         </Grid>
-        {/* Air Arabia */}
         <Grid item xs={12} sm={6} md={4}>
-          <AirLineCard sx={{ height: '100%' }}>
+          <AirLineCard sx={{ height: "100%" }}>
             <Grid
               container
               direction="column"
-              justifyContent={'center'}
-              alignItems={'center'}
+              justifyContent={"center"}
+              alignItems={"center"}
               spacing={1}
             >
               <Grid>
@@ -114,14 +139,13 @@ const SelectFlight = () => {
           </AirLineCard>
         </Grid>
 
-        {/* Air Arabia Abu Dhabi */}
         <Grid item xs={12} sm={6} md={4}>
-          <AirLineCard sx={{ height: '100%' }}>
+          <AirLineCard sx={{ height: "100%" }}>
             <Grid
               container
               direction="column"
-              justifyContent={'center'}
-              alignItems={'center'}
+              justifyContent={"center"}
+              alignItems={"center"}
               spacing={1}
             >
               <Grid>
@@ -147,14 +171,13 @@ const SelectFlight = () => {
           </AirLineCard>
         </Grid>
 
-        {/* Emirates */}
         <Grid item xs={12} sm={6} md={4}>
-          <AirLineCard sx={{ height: '100%' }}>
+          <AirLineCard sx={{ height: "100%" }}>
             <Grid
               container
               direction="column"
-              justifyContent={'center'}
-              alignItems={'center'}
+              justifyContent={"center"}
+              alignItems={"center"}
               spacing={1}
             >
               <Grid>
@@ -180,14 +203,13 @@ const SelectFlight = () => {
           </AirLineCard>
         </Grid>
 
-        {/* Etihad Airways */}
         <Grid item xs={12} sm={6} md={4}>
-          <AirLineCard sx={{ height: '100%' }}>
+          <AirLineCard sx={{ height: "100%" }}>
             <Grid
               container
               direction="column"
-              justifyContent={'center'}
-              alignItems={'center'}
+              justifyContent={"center"}
+              alignItems={"center"}
               spacing={1}
             >
               <Grid>
@@ -213,14 +235,13 @@ const SelectFlight = () => {
           </AirLineCard>
         </Grid>
 
-        {/* Flydubai */}
         <Grid item xs={12} sm={6} md={4}>
-          <AirLineCard sx={{ height: '100%' }}>
+          <AirLineCard sx={{ height: "100%" }}>
             <Grid
               container
               direction="column"
-              justifyContent={'center'}
-              alignItems={'center'}
+              justifyContent={"center"}
+              alignItems={"center"}
               spacing={1}
             >
               <Grid>
@@ -246,14 +267,13 @@ const SelectFlight = () => {
           </AirLineCard>
         </Grid>
 
-        {/* Wizz Air Abu Dhabi */}
         <Grid item xs={12} sm={6} md={4}>
-          <AirLineCard sx={{ height: '100%' }}>
+          <AirLineCard sx={{ height: "100%" }}>
             <Grid
               container
               direction="column"
-              justifyContent={'center'}
-              alignItems={'center'}
+              justifyContent={"center"}
+              alignItems={"center"}
               spacing={1}
             >
               <Grid>
@@ -279,7 +299,7 @@ const SelectFlight = () => {
           </AirLineCard>
         </Grid>
       </Grid>
-    </Container>
+    </>
   );
 };
 
