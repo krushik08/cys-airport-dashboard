@@ -116,14 +116,27 @@ function BaggagePass() {
   }, []);
   const handleDownload = async () => {
     await axios
-      .put(
-        `${process.env.REACT_APP_API_URL}/book-flight/${flightData.PNRNumber}`,
-        {
-          baggageTag: barCode,
-        }
-      )
-      .then((res) => {
-        console.log(res);
+      .post(`${process.env.REACT_APP_API_URL}/book-flight/print-baggage-tags`, {
+        name: `${flight?.firstName} ${flight?.lastName}`,
+        flightNumber: flight?.flightId?.flightNo,
+        numBags: bagCount.value,
+        destination: flight?.departureLocation,
+        barcodes: barCode,
+      })
+      .then(async (res) => {
+        await axios
+          .put(
+            `${process.env.REACT_APP_API_URL}/book-flight/${flightData.PNRNumber}`,
+            {
+              baggageTag: barCode,
+            }
+          )
+          .then((res) => {
+            navigate('/thank-you');
+          })
+          .catch((err) => {
+            console.log('err', err);
+          });
       })
       .catch((err) => {
         console.log('err', err);
@@ -147,45 +160,45 @@ function BaggagePass() {
       // }}
     >
       <Stack
-        direction={"row"}
-        alignItems={"center"}
-        sx={{ position: "absolute", top: 0, py: 2 }}
+        direction={'row'}
+        alignItems={'center'}
+        sx={{ position: 'absolute', top: 0, py: 2 }}
         gap={2}
       >
         <Box
-          component={"img"}
+          component={'img'}
           src={ArrowIcon}
           height={55}
-          sx={{ rotate: "180deg", cursor: "pointer" }}
+          sx={{ rotate: '180deg', cursor: 'pointer' }}
           onClick={() => {
             navigate(-1);
           }}
         />
 
-        <Link to={"/"}>
-          <Box component={"img"} src={HomeIcon} height={55} />
+        <Link to={'/'}>
+          <Box component={'img'} src={HomeIcon} height={55} />
         </Link>
       </Stack>
-      <Grid container spacing={2} justifyContent={"center"}>
+      <Grid container spacing={2} justifyContent={'center'}>
         <Grid item xs={12} md={6}>
           <Card
             className="baggege-card"
-            sx={{ maxWidth: "sm", mx: "auto", width: "100%" }}
+            sx={{ maxWidth: 'sm', mx: 'auto', width: '100%' }}
           >
             <CardContent sx={{ p: 0 }}>
               <Box
                 sx={{
-                  display: "flex",
-                  flexDirection: "column",
-                  justifyContent: "center",
-                  alignItems: "center",
+                  display: 'flex',
+                  flexDirection: 'column',
+                  justifyContent: 'center',
+                  alignItems: 'center',
                   p: 2,
                   gap: 1,
                 }}
               >
                 <Box
                   sx={{
-                    background: "white",
+                    background: 'white',
                     height: 40,
                     width: 40,
                     borderRadius: 50,
@@ -193,31 +206,31 @@ function BaggagePass() {
                   }}
                 />
                 <Typography variant="h1" color="secondary">
-                  Baggege Tag
+                  Baggage Tag
                 </Typography>
               </Box>
               <Divider />
 
               <Box
                 sx={{
-                  display: "flex",
-                  flexDirection: "column",
+                  display: 'flex',
+                  flexDirection: 'column',
                   p: 2,
                 }}
               >
                 <Typography
                   variant="h3"
                   sx={{
-                    fontWeight: "400",
+                    fontWeight: '400',
                     color: theme.palette.text.primary,
                   }}
                 >
                   To:
                 </Typography>
                 <Typography
-                  sx={{ fontWeight: "bold", fontSize: 50, letterSpacing: 12 }}
-                  textAlign={"center"}
-                  color={"secondary"}
+                  sx={{ fontWeight: 'bold', fontSize: 50, letterSpacing: 12 }}
+                  textAlign={'center'}
+                  color={'secondary'}
                 >
                   {flight?.departureLocation}
                 </Typography>
@@ -226,20 +239,20 @@ function BaggagePass() {
               <Divider />
               <Box
                 sx={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center",
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
                   p: 2,
-                  flexWrap: "wrap",
+                  flexWrap: 'wrap',
                   gap: 2,
                 }}
               >
-                <Stack direction="row" alignItems={"center"} gap={2}>
-                  {console.log("flight?.flightId", flight?.flightId?.flightNo)}
+                <Stack direction="row" alignItems={'center'} gap={2}>
+                  {console.log('flight?.flightId', flight?.flightId?.flightNo)}
                   <Typography
                     variant="h3"
                     sx={{
-                      fontWeight: "400",
+                      fontWeight: '400',
                       color: theme.palette.text.primary,
                     }}
                   >
@@ -248,18 +261,18 @@ function BaggagePass() {
                   <Typography
                     variant="h3"
                     sx={{
-                      fontWeight: "bold",
+                      fontWeight: 'bold',
                       color: theme.palette.text.primary,
                     }}
                   >
                     {flight?.flightNumber}
                   </Typography>
                 </Stack>
-                <Stack direction="row" alignItems={"center"} gap={2}>
+                <Stack direction="row" alignItems={'center'} gap={2}>
                   <Typography
                     variant="h3"
                     sx={{
-                      fontWeight: "400",
+                      fontWeight: '400',
                       color: theme.palette.text.primary,
                     }}
                   >
@@ -268,7 +281,7 @@ function BaggagePass() {
                   <Typography
                     variant="h3"
                     sx={{
-                      fontWeight: "bold",
+                      fontWeight: 'bold',
                       color: theme.palette.text.primary,
                     }}
                   >
@@ -277,19 +290,19 @@ function BaggagePass() {
                 </Stack>
               </Box>
               <Divider />
-              <Grid container p={2} alignItems={"center"}>
+              <Grid container p={2} alignItems={'center'}>
                 {/* <Stack direction="row" alignItems={'center'} gap={2}> */}
                 <Grid item xs={6}>
-                  <Grid container alignItems={"center"}>
+                  <Grid container alignItems={'center'}>
                     <Grid item xs={3}>
                       <Typography
                         variant="h3"
                         sx={{
-                          fontWeight: "400",
+                          fontWeight: '400',
                           color: theme.palette.text.primary,
                         }}
                       >
-                        Name:{" "}
+                        Name:{' '}
                       </Typography>
                     </Grid>
 
@@ -297,9 +310,9 @@ function BaggagePass() {
                       <Typography
                         variant="h3"
                         sx={{
-                          fontWeight: "bold",
+                          fontWeight: 'bold',
                           color: theme.palette.text.primary,
-                          textTransform: "uppercase",
+                          textTransform: 'uppercase',
                         }}
                       >
                         {flight?.firstName} {flight?.lastName}
@@ -312,19 +325,19 @@ function BaggagePass() {
                 <Grid item xs={6}>
                   <Grid
                     container
-                    alignItems={"center"}
-                    justifyContent={"flex-end"}
+                    alignItems={'center'}
+                    justifyContent={'flex-end'}
                   >
                     <Grid item xs={4}>
-                      {" "}
+                      {' '}
                       <Typography
                         variant="h3"
                         sx={{
-                          fontWeight: "400",
+                          fontWeight: '400',
                           color: theme.palette.text.primary,
                         }}
                       >
-                        No. Bag:{" "}
+                        No. Bag:{' '}
                       </Typography>
                     </Grid>
                     <Grid item xs={6}>
@@ -348,24 +361,24 @@ function BaggagePass() {
               <Box
                 ref={ref}
                 sx={{
-                  display: "flex",
-                  flexDirection: "column",
-                  justifyContent: "center ",
-                  alignItems: "center",
+                  display: 'flex',
+                  flexDirection: 'column',
+                  justifyContent: 'center ',
+                  alignItems: 'center',
                   p: 2,
                 }}
               >
                 {barCode.map((item) => (
-                  <Box display={"flex"} justifyContent={"space-between"}>
-                    <Stack direction="row" alignItems={"center"} gap={2}>
+                  <Box display={'flex'} justifyContent={'space-between'}>
+                    <Stack direction="row" alignItems={'center'} gap={2}>
                       <Typography
                         sx={{
                           fontSize: 30,
-                          fontWeight: "bold",
+                          fontWeight: 'bold',
                           color: theme.palette.text.primary,
-                          textTransform: "uppercase",
-                          display: "flex",
-                          flexDirection: "column",
+                          textTransform: 'uppercase',
+                          display: 'flex',
+                          flexDirection: 'column',
                         }}
                       >
                         {
@@ -381,11 +394,11 @@ function BaggagePass() {
                       sx={{
                         fontSize: 50,
                         marginLeft: 10,
-                        fontWeight: "bold",
+                        fontWeight: 'bold',
                         color: theme.palette.text.primary,
-                        textTransform: "uppercase",
-                        display: "flex",
-                        alignItems: "center",
+                        textTransform: 'uppercase',
+                        display: 'flex',
+                        alignItems: 'center',
                       }}
                     >
                       {flight?.departureLocation}
@@ -398,23 +411,23 @@ function BaggagePass() {
         </Grid>
 
         <Grid item xs={12}>
-          <Stack direction={"row"} justifyContent={"center"} mt={3}>
-            <ReactToPrint
+          <Stack direction={'row'} justifyContent={'center'} mt={3}>
+            {/* <ReactToPrint
               trigger={() => (
-                <DownloadButton
-                  variant="contained"
-                  textAlign={"center"}
-                  color={"secondary"}
-                  size="large"
-                  startIcon={<DownloadIcon />}
-                >
-                  Print Baggege Tag
-                </DownloadButton>
               )}
               content={() => ref.current}
-              onAfterPrint={handleDownload}
               onBeforeGetContent={() => {}}
-            />
+            /> */}
+            <DownloadButton
+              variant="contained"
+              textAlign={'center'}
+              color={'secondary'}
+              size="large"
+              onClick={handleDownload}
+              startIcon={<DownloadIcon />}
+            >
+              Print Baggage Tag
+            </DownloadButton>
           </Stack>
         </Grid>
       </Grid>
