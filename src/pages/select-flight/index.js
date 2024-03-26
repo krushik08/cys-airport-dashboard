@@ -83,7 +83,7 @@ const SelectFlight = () => {
   }, []);
   const fetchData = async () => {
     await axios
-      .get(`http://localhost:3001/flight/list`)
+      .get(`${process.env.REACT_APP_API_URL}/flight/list`)
       .then((res) => {
         return setFlight(res.data?.data);
       })

@@ -48,13 +48,15 @@ const BoardingPass = () => {
   const flightData = JSON.parse(localStorage.getItem("flightInfo"));
   const fetchData = async () => {
     await axios
-      .get(`http://localhost:3001/book-flight/${flightData.PNRNumber}`)
+      .get(
+        `${process.env.REACT_APP_API_URL}/book-flight/${flightData.PNRNumber}`
+      )
       .then((res) => {
         debugger;
         return setFlight(res.data?.data);
       })
       .catch((err) => {
-        console.log("err", err);
+        console.log('err', err);
       });
   };
   useEffect(() => {

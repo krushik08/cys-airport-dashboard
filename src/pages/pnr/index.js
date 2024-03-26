@@ -79,12 +79,12 @@ const Pnr = () => {
     // ...commonKeyboardOptions,
     layout: {
       default: [
-        "0 1 2 3 4 5 6 7 8 9",
+        '0 1 2 3 4 5 6 7 8 9 {backspace}',
         // '~ ! @ # $ % ^ & * ( ) _ + {backspace}',
-        "Q W E R T Y U I O P",
-        "A S D F G H J K L",
-        "Z X C V B N M",
-        "{space}",
+        'Q W E R T Y U I O P',
+        'A S D F G H J K L',
+        'Z X C V B N M',
+        '{space}',
       ],
       shift: [],
     },
@@ -92,22 +92,24 @@ const Pnr = () => {
   const handleGo = async () => {
     if (input) {
       await axios
-        .get(`http://localhost:3001/book-flight/${input}?flightId=${flightId}`)
+        .get(
+          `${process.env.REACT_APP_API_URL}/book-flight/${input}?flightId=${flightId}`
+        )
         .then((res) => {
-          navigate("/select-pass");
-          setError("");
+          navigate('/select-pass');
+          setError('');
         })
         .catch((err) => {
-          console.log("err", err);
+          console.log('err', err);
           setError(err?.response?.data?.message);
         });
     } else {
-      setError("Please Enter PNR Number");
+      setError('Please Enter PNR Number');
     }
     localStorage.setItem(
-      "flightInfo",
+      'flightInfo',
       JSON.stringify({
-        ...JSON.parse(localStorage.getItem("flightInfo")),
+        ...JSON.parse(localStorage.getItem('flightInfo')),
         PNRNumber: input,
       })
     );

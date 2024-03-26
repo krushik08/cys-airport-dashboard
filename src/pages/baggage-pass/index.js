@@ -55,58 +55,60 @@ function BaggagePass() {
   const flightData = JSON.parse(localStorage.getItem("flightInfo"));
   const fetchData = async () => {
     await axios
-      .get(`http://localhost:3001/book-flight/${flightData.PNRNumber}`)
+      .get(
+        `${process.env.REACT_APP_API_URL}/book-flight/${flightData.PNRNumber}`
+      )
       .then((res) => {
-        console.log("res.data?.data", res.data?.data);
+        console.log('res.data?.data', res.data?.data);
         return setFlight(res.data?.data);
       })
       .catch((err) => {
-        console.log("err", err);
+        console.log('err', err);
       });
   };
 
   const airports = [
     {
-      value: "Dubai",
-      label: "Dubai (DXB - Dubai International Airport)",
-      airport: "Dubai International Airport",
-      code: "DXB",
+      value: 'Dubai',
+      label: 'Dubai (DXB - Dubai International Airport)',
+      airport: 'Dubai International Airport',
+      code: 'DXB',
     },
     {
-      value: "Abu Dhabi",
-      label: "Abu Dhabi (AUH - Zayed International Airport)",
-      airport: "Zayed International Airport",
-      code: "AUH",
+      value: 'Abu Dhabi',
+      label: 'Abu Dhabi (AUH - Zayed International Airport)',
+      airport: 'Zayed International Airport',
+      code: 'AUH',
     },
     {
-      value: "Mumbai",
-      label: "Mumbai (BOM - Chhatrapati Shivaji Maharaj International Airport)",
-      airport: "Chhatrapati Shivaji Maharaj International Airport",
-      code: "BOM",
+      value: 'Mumbai',
+      label: 'Mumbai (BOM - Chhatrapati Shivaji Maharaj International Airport)',
+      airport: 'Chhatrapati Shivaji Maharaj International Airport',
+      code: 'BOM',
     },
     {
-      value: "London",
-      label: "London (OXF - Oxford, United Kingdom)",
-      airport: "Oxford, United Kingdom",
-      code: "OXF",
+      value: 'London',
+      label: 'London (OXF - Oxford, United Kingdom)',
+      airport: 'Oxford, United Kingdom',
+      code: 'OXF',
     },
     {
-      value: "Paris",
-      label: "Paris (PAR - Charles de Gaulle Airport)",
-      airport: "Charles de Gaulle Airport",
-      code: "PAR",
+      value: 'Paris',
+      label: 'Paris (PAR - Charles de Gaulle Airport)',
+      airport: 'Charles de Gaulle Airport',
+      code: 'PAR',
     },
     {
-      value: "New York",
-      label: "New York (JFK - John F. Kennedy International Airport)",
-      airport: "John F. Kennedy International Airport",
-      code: "JFK",
+      value: 'New York',
+      label: 'New York (JFK - John F. Kennedy International Airport)',
+      airport: 'John F. Kennedy International Airport',
+      code: 'JFK',
     },
     {
-      value: "Barcelona",
-      label: "Barcelona (BCN - Josep Tarradellas Barcelona–El Prat Airport)",
-      airport: "Josep Tarradellas Barcelona–El Prat Airport",
-      code: "BCN",
+      value: 'Barcelona',
+      label: 'Barcelona (BCN - Josep Tarradellas Barcelona–El Prat Airport)',
+      airport: 'Josep Tarradellas Barcelona–El Prat Airport',
+      code: 'BCN',
     },
   ];
   useEffect(() => {
@@ -114,14 +116,17 @@ function BaggagePass() {
   }, []);
   const handleDownload = async () => {
     await axios
-      .put(`http://localhost:3001/book-flight/${flightData.PNRNumber}`, {
-        baggageTag: barCode,
-      })
+      .put(
+        `${process.env.REACT_APP_API_URL}/book-flight/${flightData.PNRNumber}`,
+        {
+          baggageTag: barCode,
+        }
+      )
       .then((res) => {
         console.log(res);
       })
       .catch((err) => {
-        console.log("err", err);
+        console.log('err', err);
       });
   };
   useEffect(() => {
