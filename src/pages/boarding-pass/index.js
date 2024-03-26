@@ -20,39 +20,39 @@ import ReactToPrint from "react-to-print";
 
 import HomeIcon from "assets/images/icons/home.png";
 import ArrowIcon from "assets/images/icons/arrow.png";
+import toast from 'react-hot-toast';
 
 const DownloadButton = styled(Button)(() => ({
   height: 56,
   // width: 108,
-  fontSize: "1.2rem",
+  fontSize: '1.2rem',
 }));
 const AirLinesLogo = styled(Box)(({ theme }) => ({
-  width: "70px",
+  width: '70px',
   aspectRatio: 1 / 1,
-  borderRadius: "8px",
-  padding: "4px",
+  borderRadius: '8px',
+  padding: '4px',
 
-  [theme.breakpoints.up("md")]: {
-    width: "70px",
+  [theme.breakpoints.up('md')]: {
+    width: '70px',
   },
-  [theme.breakpoints.up("sm")]: {
-    width: "70px",
+  [theme.breakpoints.up('sm')]: {
+    width: '70px',
   },
 }));
 
 const BoardingPass = () => {
   const navigate = useNavigate();
   const ref = useRef();
-  const [qrCodeDataURL, setQRCodeDataURL] = useState("");
+  const [qrCodeDataURL, setQRCodeDataURL] = useState('');
   const [flight, setFlight] = useState();
-  const flightData = JSON.parse(localStorage.getItem("flightInfo"));
+  const flightData = JSON.parse(localStorage.getItem('flightInfo'));
   const fetchData = async () => {
     await axios
       .get(
         `${process.env.REACT_APP_API_URL}/book-flight/${flightData.PNRNumber}`
       )
       .then((res) => {
-        debugger;
         return setFlight(res.data?.data);
       })
       .catch((err) => {
@@ -114,7 +114,7 @@ const BoardingPass = () => {
         navigate('/thank-you');
       })
       .catch((err) => {
-        console.log('err', err);
+        toast.error(err?.response?.data?.response || 'Something went wrong!');
       });
   };
 

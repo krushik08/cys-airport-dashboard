@@ -40,6 +40,7 @@
         "react-dom": "^18.2.0",
         "react-gauge-chart": "^0.4.1",
         "react-hook-form": "^7.45.4",
+        "react-hot-toast": "^2.4.1",
         "react-intl": "^6.4.4",
         "react-markdown": "^8.0.7",
         "react-perfect-scrollbar": "^1.5.8",

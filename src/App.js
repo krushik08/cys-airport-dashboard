@@ -7,6 +7,8 @@ import router from 'routes';
 import NavigationScroll from 'layout/NavigationScroll';
 import Snackbar from 'ui-component/extended/Snackbar';
 import Notistack from 'ui-component/third-party/Notistack';
+import { Toaster } from 'react-hot-toast';
+
 
 import ThemeCustomization from 'themes';
 
@@ -19,18 +21,19 @@ import { JWTProvider as AuthProvider } from 'contexts/JWTContext';
 // ==============================|| APP ||============================== //
 
 const App = () => (
-    <ThemeCustomization>
-        <NavigationScroll>
-            <AuthProvider>
-                <>
-                    <Notistack>
-                        <RouterProvider router={router} />
-                        <Snackbar />
-                    </Notistack>
-                </>
-            </AuthProvider>
-        </NavigationScroll>
-    </ThemeCustomization>
+  <ThemeCustomization>
+    <NavigationScroll>
+      <AuthProvider>
+        <>
+          <Notistack>
+            <RouterProvider router={router} />
+            <Snackbar />
+            <Toaster />
+          </Notistack>
+        </>
+      </AuthProvider>
+    </NavigationScroll>
+  </ThemeCustomization>
 );
 
 export default App;
