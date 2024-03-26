@@ -155,6 +155,7 @@ const Pnr = () => {
                     fullWidth
                     value={input}
                     onChange={onChangeInput}
+                    inputProps={{ maxLength: 6 }}
                   />
                   <Box component={"p"} sx={{ color: "#A80001" }}>
                     {error}
